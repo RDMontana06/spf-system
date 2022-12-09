@@ -31,10 +31,10 @@
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
 						<span class="label label-primary pull-right">as of Today</span>
-						<h5>Approved Request</h5>
+						<h5>Reviewed Request</h5>
 					</div>
 					<div class="ibox-content">
-						<h1 class="no-margins">0</h1>
+						<h1 class="no-margins">{{ {{ count($form_requests->where('status', 'Pending')->where('approval_id', auth()->user()->id)) }} }}</h1>
 						{{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
 						<small>&nbsp;</small>
 					</div>
@@ -90,7 +90,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach ($form_requests as $form)
+								@foreach ($form_requests->where('status', 'Pending') as $form)
 									<tr>
 										<td>
 											@if ($form->project != null)

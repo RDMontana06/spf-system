@@ -113,8 +113,9 @@ class RequestController extends Controller
     {
         $banks = Bank::get();
         $projects = Project::get();
-        $form_requests = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->where('status', 'Pending')->orderBy('created_at', 'DESC')->get();
-        // dd($form_requests->all());
+        $form_requests = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->orderBy('created_at', 'DESC')->get();
+        // $reviewed_requests = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->where('status', 'Reviewed')->where('approval_id', auth()->user()->id)->get();
+        //  dd(auth()->user()->id);
         $header = "For Review";
         $subheader = "";
 
@@ -126,14 +127,16 @@ class RequestController extends Controller
                 'banks' => $banks,
                 'projects' => $projects,
                 'form_requests' => $form_requests,
+                // 'reviewed_requests' => $reviewed_requests,
             )
         );
     }
     public function for_verification()
     {
         $projects = Project::get();
-        $form_requests = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->where('status', 'Reviewed')->get();
+        $form_requests = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->orderBy('created_at', 'DESC')->get();
         $header = "For Verification";
+        // dd($form_requests->all());
         $subheader = "";
 
         return view(
@@ -154,7 +157,7 @@ class RequestController extends Controller
         $form = FormRequest::where('id', $id)->first();
         $form->status = "Reviewed";
         $form->remarks = $request->remarks;
-        $form->approval_id = $reqApprover->id;
+        $form->approval_id = auth()->user()->id;
         $form->save();
 
         $history = new FormRequestHistory;
@@ -219,6 +222,7 @@ class RequestController extends Controller
         $form = FormRequest::where('id', $id)->first();
         $form->status = "Approved";
         $form->remarks = $request->remarks;
+        $form->approval_id = auth()->user()->id;
         $form->save();
 
         $history = new FormRequestHistory;

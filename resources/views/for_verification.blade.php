@@ -18,10 +18,10 @@
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
 						<span class="label label-warning pull-right">as of Today</span>
-						<h5> Pending For Review</h5>
+						<h5> Pending For Approval</h5>
 					</div>
 					<div class="ibox-content">
-						<h1 class="no-margins" id='pending_request'>0</h1>
+						<h1 class="no-margins" id='pending_request'>{{ count($form_requests->where('status', 'Reviewed')) }}</h1>
 						{{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
 						<small>&nbsp;</small>
 					</div>
@@ -34,7 +34,7 @@
 						<h5>Approved Request</h5>
 					</div>
 					<div class="ibox-content">
-						<h1 class="no-margins">0</h1>
+						<h1 class="no-margins">{{ count($form_requests->where('status', 'Approved')->where('approval_id', auth()->user()->id)) }}</h1>
 						{{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
 						<small>&nbsp;</small>
 					</div>
@@ -47,7 +47,7 @@
 						<h5>Declined Requests</h5>
 					</div>
 					<div class="ibox-content">
-						<h1 class="no-margins" id='declined_request'>0</h1>
+						<h1 class="no-margins" id='declined_request'>{{ count($form_requests->where('status', 'Rejected')) }}</h1>
 						{{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
 						<small>&nbsp;</small>
 					</div>
@@ -84,13 +84,14 @@
 									<th>Purpose</th>
 									<th>Payee Information</th>
 									<th>Amount</th>
+									{{-- <th>Remaining SPF Budget</th> --}}
 									<th>Attachments</th>
 									<th>Status</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								@foreach ($form_requests as $form)
+								@foreach ($form_requests->where('status', 'Reviewed') as $form)
 									<tr>
 										<td>
 											@if ($form->project != null)
@@ -106,7 +107,7 @@
 												<small>
 													Project ID : {{ $form->project->project_id }}
 													<br>
-													Remaining Budget : {{ number_format($form->project->spf_budget, 2) }}
+													Remaining Budget : {{ number_format($form->project->spf_budget - $form->amount, 2) }}
 													<br>
 												</small>
 											@endif
@@ -133,6 +134,7 @@
 												No Data Found
 											@else
 												@foreach ($form->attachments as $attachment)
+												<a href="{{ url($attachment->attachment_url) }}"style="text-decoration:none;" target="_blank" title="Open File" ><span class="fa fa-file"></span></a>
 												@endforeach
 											@endif
 										</td>
