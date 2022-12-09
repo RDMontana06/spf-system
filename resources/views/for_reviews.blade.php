@@ -34,7 +34,7 @@
 						<h5>Reviewed Request</h5>
 					</div>
 					<div class="ibox-content">
-						<h1 class="no-margins">{{ {{ count($form_requests->where('status', 'Pending')->where('approval_id', auth()->user()->id)) }} }}</h1>
+						<h1 class="no-margins">{{ count($form_requests->where('status', 'Pending')->where('approval_id', auth()->user()->id)) }}</h1>
 						{{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
 						<small>&nbsp;</small>
 					</div>
