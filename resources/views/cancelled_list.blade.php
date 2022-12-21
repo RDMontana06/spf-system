@@ -26,26 +26,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($form_requests_cancelled as $cancelled)
-								<tr id='project{{ $cancelled->id }}'>
-									<td>{{ $cancelled->spf_type }}</td>
-									<td>{{ $cancelled->project->agency }}</td>
-									<td>{{ $cancelled->name_of_payee }}</td>
-									<td>{{ $cancelled->bank }}</td>
-									<td>{{ $cancelled->account_number }}</td>
-									<td>{{ number_format($cancelled->amount) }}</td>
-									<td>
-										<button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal"
-											data-target="#requesLogs{{ $cancelled->id }}"title="View Request Logs">
-											<i class="fa fa-history"></i>
-										</button>
+							@if ($form_requests_cancelled->count() > 0)
+								@foreach ($form_requests_cancelled as $cancelled)
+									<tr id='project{{ $cancelled->id }}'>
+										<td>{{ $cancelled->spf_type }}</td>
+										<td>{{ $cancelled->project->agency }}</td>
+										<td>{{ $cancelled->name_of_payee }}</td>
+										<td>{{ $cancelled->bank }}</td>
+										<td>{{ $cancelled->account_number }}</td>
+										<td>{{ number_format($cancelled->amount) }}</td>
+										<td>
+											<button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal"
+												data-target="#requesLogs{{ $cancelled->id }}"title="View Request Logs">
+												<i class="fa fa-history"></i>
+											</button>
 
-									</td>
-									{{-- <td>{{ $cancelled->request_history->action }}</td>
+										</td>
+										{{-- <td>{{ $cancelled->request_history->action }}</td>
 									<td>{{ $cancelled->request_history->remarks }}</td>
 									<td>{{ $cancelled->request_history->action_by }}</td> --}}
-								</tr>
-							@endforeach
+									</tr>
+								@endforeach
+							@endif
+
 						</tbody>
 					</table>
 				</div>
