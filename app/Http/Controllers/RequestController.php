@@ -23,11 +23,11 @@ class RequestController extends Controller
         $projects = Project::get();
         $form_requests = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->where('encode_by', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         $form_requests_pending = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->where('encode_by', auth()->user()->id)->where('status', 'Pending')->get();
-        $form_requests_cancelled = FormRequest::with('project.company', 'user', 'bank_info', 'attachments', 'request_history')->where('encode_by', auth()->user()->id)->where('status', 'Cancelled')->get();
+        $form_requests_cancelled = FormRequest::with('project', 'user', 'bank_info', 'attachments', 'request_history')->where('encode_by', auth()->user()->id)->where('status', 'Cancelled')->get();
         $header = "Requests";
         $subheader = "";
 
-        // dd($form_requests->all());
+        //   dd($form_requests_cancelled->all());
 
         return view(
             'requests',

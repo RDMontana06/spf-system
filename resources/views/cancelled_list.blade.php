@@ -30,7 +30,7 @@
 								@foreach ($form_requests_cancelled as $cancelled)
 									<tr id='project{{ $cancelled->id }}'>
 										<td>{{ $cancelled->spf_type }}</td>
-										<td>{{ $cancelled->project->agency }}</td>
+										<td>{{ $cancelled->project->project_id }}</td>
 										<td>{{ $cancelled->name_of_payee }}</td>
 										<td>{{ $cancelled->bank }}</td>
 										<td>{{ $cancelled->account_number }}</td>
