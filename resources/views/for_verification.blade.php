@@ -34,7 +34,8 @@
 						<h5>Approved Request</h5>
 					</div>
 					<div class="ibox-content">
-						<h1 class="no-margins">{{ count($form_requests->where('status', 'Approved')->where('approval_id', auth()->user()->id)) }}</h1>
+						<h1 class="no-margins" id='approved_request' data-toggle="modal" data-target="#approvedList"
+							style="cursor:pointer;" title="Approved Requests">{{ count($form_requests->where('status', 'Approved')->where('approval_id', auth()->user()->id)) }}</h1>
 						{{-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div> --}}
 						<small>&nbsp;</small>
 					</div>
@@ -73,7 +74,7 @@
 
 					<div class="ibox-content">
 						<table datatable="" dt-options="dtOptions"
-							class="table table-striped table-bordered table-hover dataTables-example">
+							class="table table-striped table-bordered table-hover for-verif-tbl">
 							<thead>
 								<tr>
 									{{-- <th>Logo</th> --}}
@@ -164,4 +165,5 @@
 			</div>
 		</div>
 	</div>
+	@include('approved_list')
 @endsection

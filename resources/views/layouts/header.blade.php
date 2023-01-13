@@ -318,6 +318,41 @@
 
 
 				});
+				$('.for-verif-tbl').DataTable({
+					lengthMenu: [
+						[10, 25, 50, -1],
+						[10, 25, 50, "All"]
+					],
+					pageLength: -1,
+					pagging: true,
+					scrollY: true,
+					responsive: true,
+					searching: true,
+					sorting:false,
+					// ordering: true,
+					// lengthChange: true,
+					// info: false,
+					// dom: "lfrti"
+
+
+				});
+				$('.approved-list-tbl').DataTable({
+					lengthMenu: [
+						[10, 25, 50, -1],
+						[10, 25, 50, "All"]
+					],
+					// pageLength: -1,
+					// pagging: true,
+					// scrollY: true,
+					// responsive: true,
+					// searching: true,
+					// sorting:false,
+					// ordering: true,
+					// lengthChange: true,
+					// info: false,
+					// dom: "lfrti"
+				});
+				
 				$('#pendingReqTbl').DataTable({
 					pageLength: 10,
 					"displayLength": 10,
