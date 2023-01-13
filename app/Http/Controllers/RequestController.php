@@ -23,7 +23,12 @@ class RequestController extends Controller
         $projects = Project::get();
         $form_requests = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->where('encode_by', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         $form_requests_pending = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->where('encode_by', auth()->user()->id)->where('status', 'Pending')->get();
+<<<<<<< HEAD
         $form_requests_cancelled = FormRequest::with('project', 'user', 'bank_info', 'attachments', 'request_history')->where('encode_by', auth()->user()->id)->where('status', 'Cancelled')->get();
+=======
+        $form_requests_cancelled = FormRequest::with('project.company', 'user', 'bank_info', 'attachments', 'request_history')->where('encode_by', auth()->user()->id)->where('status', 'Cancelled')->get();
+        
+>>>>>>> b1ecdadd83ec7435dad9a78c7f27b3d1d27ac2b7
         $header = "Requests";
         $subheader = "";
 
@@ -135,8 +140,9 @@ class RequestController extends Controller
     {
         $projects = Project::get();
         $form_requests = FormRequest::with('project.company', 'user', 'bank_info', 'attachments')->orderBy('created_at', 'DESC')->get();
+        $form_requests_approved = FormRequest::with('project.company', 'user', 'bank_info', 'attachments', 'request_history')->where('approval_id', auth()->user()->id)->where('status', 'Approved')->get();
         $header = "For Verification";
-        // dd($form_requests->all());
+        // dd($form_requests_approved->all());
         $subheader = "";
 
         return view(
@@ -146,6 +152,8 @@ class RequestController extends Controller
                 'subheader' => $subheader,
                 'projects' => $projects,
                 'form_requests' => $form_requests,
+                'form_requests_approved' => $form_requests_approved,
+
             )
         );
     }
