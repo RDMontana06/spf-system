@@ -85,7 +85,8 @@
 									<th>Purpose</th>
 									<th>Payee Information</th>
 									<th>Amount</th>
-									{{-- <th>Remaining SPF Budget</th> --}}
+									<th>Remaining SPF Budget</th>
+									<th>SPF Budget</th>
 									<th>Attachments</th>
 									<th>Status</th>
 									<th>Action</th>
@@ -129,6 +130,9 @@
 										</td>
 										<td>{{ number_format($form->amount, 2) }}
 										</td>
+										<td>{{ number_format($form->project->abc - $form->amount, 2) }}
+										</td>
+										<td>{{ number_format($form->project->abc, 2) }}
 										<td>
 
 											@if (count($form->attachments) == 0)
